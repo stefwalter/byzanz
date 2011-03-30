@@ -38,6 +38,12 @@ Record mouse cursor
 \fB\-d\fR, \fB\-\-duration\fR=\fISECS\fR
 Duration of animation (default: 10 seconds)
 .TP
+\fB\-e\fR, \fB\-\-exec\fR=\fICOMMAND\fR
+Instead of specifying the duration of the animation, execute the given \fBCOMMAND\fP
+and record until the command exits. This is useful both for benchmarking and to
+use more complex ways to stop the recording, like writing scripts that listen on
+dbus.
+.TP
 \fB\-\-delay\fR=\fISECS\fR
 Delay before start (default: 1 second)
 .TP

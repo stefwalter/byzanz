@@ -30,11 +30,13 @@ static int delay = 1;
 static gboolean cursor = FALSE;
 static gboolean audio = FALSE;
 static gboolean verbose = FALSE;
+static char *exec = NULL;
 static cairo_rectangle_int_t area = { 0, 0, G_MAXINT / 2, G_MAXINT / 2 };
 
 static GOptionEntry entries[] = 
 {
   { "duration", 'd', 0, G_OPTION_ARG_INT, &duration, N_("Duration of animation (default: 10 seconds)"), N_("SECS") },
+  { "exec", 'e', 0, G_OPTION_ARG_STRING, &exec, N_("Command to execute and time"), N_("COMMAND") },
   { "delay", 0, 0, G_OPTION_ARG_INT, &delay, N_("Delay before start (default: 1 second)"), N_("SECS") },
   { "cursor", 'c', 0, G_OPTION_ARG_NONE, &cursor, N_("Record mouse cursor"), NULL },
   { "audio", 'a', 0, G_OPTION_ARG_NONE, &audio, N_("Record audio"), NULL },
@@ -96,12 +98,47 @@ stop_recording (gpointer session)
   return FALSE;
 }
 
+static void
+child_exited (GPid     pid,
+              gint     status,
+              gpointer session)
+{
+  if (status != 0)
+    verbose_print (_("Child exited with error %d\n"), status);
+
+  stop_recording (session);
+}
+
 static gboolean
 start_recording (gpointer session)
 {
-  verbose_print (_("Recording starts. Will record %d seconds...\n"), duration / 1000);
+  if (exec) {
+    GError *error = NULL;
+    GPid pid;
+    char **args;
+
+    if (!g_shell_parse_argv (exec, NULL, &args, &error)) {
+      g_print (_("Invalid exec command: %s\n"), error->message);
+      g_error_free (error);
+      gtk_main_quit ();
+      return FALSE;
+    }
+  
+    if (!g_spawn_async (NULL, args, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+        NULL, NULL, &pid, &error)) {
+      g_print (_("Failed to execute: %s\n"), error->message);
+      g_error_free (error);
+      gtk_main_quit ();
+      return FALSE;
+    }
+
+    verbose_print (_("Recording starts. Will record until child exits...\n"));
+    g_child_watch_add (pid, child_exited, session);
+  } else {
+    verbose_print (_("Recording starts. Will record %d seconds...\n"), duration / 1000);
+    g_timeout_add (duration, stop_recording, session);
+  }
   byzanz_session_start (session);
-  g_timeout_add (duration, stop_recording, session);
   
   return FALSE;
 }
@@ -158,6 +195,7 @@ main (int argc, char **argv)
       gdk_get_default_root_window (), &area, cursor, audio);
   g_object_unref (file);
   g_signal_connect (rec, "notify", G_CALLBACK (session_notify_cb), NULL);
+  
   delay = MAX (delay, 1);
   delay = (delay - 1) * 1000;
   duration = MAX (duration, 0);
