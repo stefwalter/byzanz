@@ -99,20 +99,10 @@ byzanz_layer_window_snapshot (ByzanzLayer *layer)
 }
 
 static void
-byzanz_cairo_set_source_window (cairo_t *cr, GdkWindow *window, double x, double y)
-{
-  cairo_t *tmp;
-
-  tmp = gdk_cairo_create (window);
-  cairo_set_source_surface (cr, cairo_get_target (tmp), x, y);
-  cairo_destroy (tmp);
-}
-
-static void
 byzanz_layer_window_render (ByzanzLayer *layer,
                             cairo_t *    cr)
 {
-  byzanz_cairo_set_source_window (cr, layer->recorder->window, 0, 0);
+  gdk_cairo_set_source_window (cr, layer->recorder->window, 0, 0);
   cairo_paint (cr);
 }
 
