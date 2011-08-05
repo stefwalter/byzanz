@@ -94,7 +94,7 @@ byzanz_layer_cursor_setup_poll (ByzanzLayerCursor *clayer)
 }
 
 static void
-byzanz_recorder_invalidate_cursor (cairo_region_t *region, XFixesCursorImage *cursor, int x, int y)
+byzanz_layer_cursor_invalidate_cursor (cairo_region_t *region, XFixesCursorImage *cursor, int x, int y)
 {
   cairo_rectangle_int_t cursor_rect;
 
@@ -131,8 +131,8 @@ byzanz_layer_cursor_snapshot (ByzanzLayer *layer)
     return NULL;
 
   region = cairo_region_create ();
-  byzanz_recorder_invalidate_cursor (region, clayer->cursor, clayer->cursor_x, clayer->cursor_y);
-  byzanz_recorder_invalidate_cursor (region, clayer->cursor_next, x, y);
+  byzanz_layer_cursor_invalidate_cursor (region, clayer->cursor, clayer->cursor_x, clayer->cursor_y);
+  byzanz_layer_cursor_invalidate_cursor (region, clayer->cursor_next, x, y);
   area = cairo_region_create_rectangle (&layer->recorder->area);
   cairo_region_intersect (region, area);
   cairo_region_destroy (area);
