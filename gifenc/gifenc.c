@@ -487,7 +487,7 @@ gifenc_dither_rgb (guint8* target, guint target_rowstride,
   this_error = g_new0 (gint, (width + 2) * 3);
   next_error = g_new (gint, (width + 2) * 3);
   for (y = 0; y < height; y++) {
-    const guint32 *row = (const guint32 *) data;
+    const guint32 *row = (const guint32 *) (void *) data;
     gint *cur_error = this_error + 3;
     gint *cur_next_error = next_error;
     err[0] = err[1] = err[2] = 0;
@@ -546,7 +546,7 @@ gifenc_dither_rgb_with_full_image (guint8 *target, guint target_rowstride,
   this_error = g_new0 (gint, (width + 2) * 3);
   next_error = g_new (gint, (width + 2) * 3);
   for (y = 0; y < (int) height; y++) {
-    const guint32 *row = (const guint32 *) data;
+    const guint32 *row = (const guint32 *) (void *) data;
     gint *cur_error = this_error + 3;
     gint *cur_next_error = next_error;
     err[0] = err[1] = err[2] = 0;

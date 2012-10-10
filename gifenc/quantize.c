@@ -374,7 +374,7 @@ gifenc_quantize_image (const guint8 *data, guint width, guint height,
   }
   
   for (y = 0; y < height; y++) {
-    row = (const guint32 *) data;
+    row = (const guint32 *) (void *) data;
     for (x = 0; x < width; x++) {
       gifenc_octree_add_color (&info, row[x] & 0xFFFFFF, 1);
     }
