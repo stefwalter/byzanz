@@ -27,14 +27,49 @@
 
 G_DEFINE_TYPE (ByzanzLayerCursor, byzanz_layer_cursor, BYZANZ_TYPE_LAYER)
 
+static cairo_surface_t *
+create_surface_for_cursor (XFixesCursorImage *cursor)
+{
+  cairo_surface_t *surface;
+  gulong *cursor_data;
+  guint32 *surface_data;
+  guint x, y, stride;
+
+  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
+                                        cursor->width,
+                                        cursor->height);
+
+  surface_data = (guint32 *) cairo_image_surface_get_data (surface);
+  cursor_data = cursor->pixels;
+  stride = cairo_image_surface_get_stride (surface) / sizeof (guint32);
+
+  for (y = 0; y < cursor->height; y++)
+    {
+      for (x = 0; x < cursor->width; x++)
+        {
+          surface_data[x] = *cursor_data;
+          cursor_data++;
+        }
+      surface_data += stride;
+    }
+
+  cairo_surface_mark_dirty (surface);
+  cairo_surface_set_device_offset (surface, cursor->xhot, cursor->yhot);
+
+  return surface;
+}
+
 static void
 byzanz_layer_cursor_read_cursor (ByzanzLayerCursor *clayer)
 {
   Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_window_get_display (BYZANZ_LAYER (clayer)->recorder->window));
+  XFixesCursorImage *cursor;
 
-  clayer->cursor_next = XFixesGetCursorImage (dpy);
-  if (clayer->cursor_next)
-    g_hash_table_insert (clayer->cursors, clayer->cursor_next, clayer->cursor_next);
+  cursor = XFixesGetCursorImage (dpy);
+  if (cursor)
+     g_hash_table_insert (clayer->cursors, cursor, create_surface_for_cursor (cursor));
+
+  clayer->cursor_next = cursor;
 }
 
 static gboolean
@@ -150,33 +185,19 @@ byzanz_layer_cursor_render (ByzanzLayer *layer,
                             cairo_t *    cr)
 {
   ByzanzLayerCursor *clayer = BYZANZ_LAYER_CURSOR (layer);
-  XFixesCursorImage *cursor = clayer->cursor;
   cairo_surface_t *cursor_surface;
 
   if (clayer->cursor == NULL)
     return;
 
-  cursor_surface = cairo_image_surface_create_for_data ((guchar *) cursor->pixels,
-      CAIRO_FORMAT_ARGB32, cursor->width * sizeof (unsigned long) / 4, cursor->height,
-      cursor->width * sizeof (unsigned long));
+  cursor_surface = g_hash_table_lookup (clayer->cursors, clayer->cursor);
   
   cairo_save (cr);
 
-  cairo_translate (cr, clayer->cursor_x - cursor->xhot, clayer->cursor_y - cursor->yhot);
-
-  /* This is neeed to map an unsigned long array to a uint32_t array */
-  cairo_scale (cr, 4.0 / sizeof (unsigned long), 1);
-#if G_BYTE_ORDER == G_BIG_ENDIAN
-  cairo_translate (cr, (4.0 - sizeof (unsigned long)) / sizeof (unsigned long), 0);
-#endif
-
+  cairo_translate (cr, clayer->cursor_x, clayer->cursor_y);
   cairo_set_source_surface (cr, cursor_surface, 0, 0);
-  /* Next line is also neeed for mapping the unsigned long array to a uint32_t array */
-  cairo_pattern_set_filter (cairo_get_source (cr), CAIRO_FILTER_NEAREST);
   cairo_paint (cr);
   cairo_restore (cr);
-
-  cairo_surface_destroy (cursor_surface);
 }
 
 static void
