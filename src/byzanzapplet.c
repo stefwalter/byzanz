@@ -26,7 +26,6 @@
 #include <panel-applet.h>
 #include <gio/gio.h>
 #include <glib/gstdio.h>
-#include <panel-applet-gconf.h>
 #include "paneltogglebutton.h"
 #include <glib/gi18n.h>
 
@@ -48,12 +47,15 @@ typedef struct {
   ByzanzSession *	rec;		/* the session (if recording) */
 
   /* config */
+  GSettings *           settings;       /* the settings for this applet */
   int			method;		/* recording method that was set */
 } AppletPrivate;
 #define APPLET_IS_RECORDING(applet) ((applet)->tmp_file != NULL)
 
 /*** PENDING RECORDING ***/
 
+static void
+byzanz_applet_show_error (AppletPrivate *priv, const char *error, const char *details, ...) G_GNUC_PRINTF (3, 4);
 static void
 byzanz_applet_show_error (AppletPrivate *priv, const char *error, const char *details, ...)
 {
@@ -151,8 +153,7 @@ byzanz_applet_set_default_method (AppletPrivate *priv, int id)
 
   priv->method = id;
 
-  panel_applet_gconf_set_string (priv->applet, "method", 
-      byzanz_select_method_get_name (id), NULL);
+  g_settings_set_string (priv->settings, "method", byzanz_select_method_get_name (id));
 }
 
 static void
@@ -190,7 +191,7 @@ byzanz_applet_select_done (GdkWindow *window, const cairo_rectangle_int_t *area,
     if (encoder_type == 0)
       encoder_type = byzanz_encoder_get_type_from_file (priv->file);
     priv->rec = byzanz_session_new (priv->file, encoder_type, window, area, FALSE,
-        panel_applet_gconf_get_bool (priv->applet, "record_audio", NULL));
+        g_settings_get_boolean (priv->settings, "record-audio"));
     g_signal_connect_swapped (priv->rec, "notify", G_CALLBACK (byzanz_applet_session_notify), priv);
     byzanz_session_start (priv->rec);
   }
@@ -216,7 +217,7 @@ panel_applet_start_response (GtkWidget *dialog, int response, AppletPrivate *pri
   for (i = 0; i < byzanz_select_get_method_count (); i++) {
     if (response == method_response_codes[i]) {
       char *uri = g_file_get_uri (priv->file);
-      panel_applet_gconf_set_string (priv->applet, "save_filename", uri, NULL);
+      g_settings_set_string (priv->settings, "save-filename", uri);
       g_free (uri);
       byzanz_applet_set_default_method (priv, i);
       break;
@@ -233,9 +234,9 @@ panel_applet_start_response (GtkWidget *dialog, int response, AppletPrivate *pri
     priv->encoder_type = 0;
   }
 
-  panel_applet_gconf_set_bool (priv->applet, "record_audio",
+  g_settings_set_boolean (priv->settings, "record-audio",
       gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (
-          gtk_file_chooser_get_extra_widget (GTK_FILE_CHOOSER (priv->dialog)))), NULL);
+          gtk_file_chooser_get_extra_widget (GTK_FILE_CHOOSER (priv->dialog)))));
 
   gtk_widget_destroy (dialog);
   priv->dialog = NULL;
@@ -290,22 +291,16 @@ byzanz_applet_start_recording (AppletPrivate *priv)
 
     gtk_file_chooser_set_extra_widget (GTK_FILE_CHOOSER (priv->dialog),
         gtk_check_button_new_with_label (_("Record audio")));
-    if (panel_applet_gconf_get_bool (priv->applet, "record_audio", NULL)) {
+    if (g_settings_get_boolean (priv->settings, "record-audio")) {
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (
           gtk_file_chooser_get_extra_widget (GTK_FILE_CHOOSER (priv->dialog))), TRUE);
     }
 
     gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (priv->dialog), FALSE);
-    uri = panel_applet_gconf_get_string (priv->applet, "save_filename", NULL);
+    uri = g_settings_get_string (priv->settings, "save-filename");
     if (!uri || uri[0] == '\0' ||
         !gtk_file_chooser_set_uri (GTK_FILE_CHOOSER (priv->dialog), uri)) {
-      g_free (uri);
-      /* Try the key used by old versions. Maybe it's still set. */
-      uri = panel_applet_gconf_get_string (priv->applet, "save_directory", NULL);
-      if (!uri || uri[0] == '\0' ||
-	  !gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (priv->dialog), uri)) {
-        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (priv->dialog), g_get_home_dir ());
-      }
+      gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (priv->dialog), g_get_home_dir ());
     }
     g_free (uri);
     gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (priv->dialog), TRUE);
@@ -398,6 +393,8 @@ byzanz_applet_fill (PanelApplet *applet, const gchar *iid, gpointer data)
 
   priv = g_new0 (AppletPrivate, 1);
   priv->applet = applet;
+  priv->settings = panel_applet_settings_new (applet, "org.gnome.byzanz.applet");
+
   g_signal_connect (applet, "destroy", G_CALLBACK (destroy_applet), priv);
   panel_applet_add_preferences (applet, "/schemas/apps/byzanz-applet/prefs",
       NULL);
@@ -416,7 +413,7 @@ byzanz_applet_fill (PanelApplet *applet, const gchar *iid, gpointer data)
   g_free (ui_path);
   g_object_unref (action_group);
 
-  method = panel_applet_gconf_get_string (priv->applet, "method", NULL);
+  method = g_settings_get_string (priv->settings, "method");
   priv->method = byzanz_select_method_lookup (method);
   g_free (method);
   if (priv->method < 0)
