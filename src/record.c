@@ -47,6 +47,8 @@ static GOptionEntry entries[] =
 };
 
 static void
+verbose_print (const gchar *format, ...) G_GNUC_PRINTF (1, 2);
+static void
 verbose_print (const gchar *format, ...)
 {
   gchar *buffer;
