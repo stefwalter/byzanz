@@ -55,8 +55,6 @@ typedef struct {
 /*** PENDING RECORDING ***/
 
 static void
-byzanz_applet_show_error (AppletPrivate *priv, const char *error, const char *details, ...) G_GNUC_PRINTF (3, 4);
-static void
 byzanz_applet_show_error (AppletPrivate *priv, const char *error, const char *details, ...)
 {
   GtkWidget *dialog, *parent;

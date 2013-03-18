@@ -63,6 +63,8 @@ AC_DEFINE_DIR(DATADIR, "${datadir}", [datadir])
 dnl Check for essential libraries first:
 dnl ====================================
 
+GLIB_GSETTINGS
+
 CAIRO_REQ="1.10"
 GTK_REQ="3.0.0"
 APPLET_REQ="2.91.91"
@@ -82,9 +84,6 @@ AC_SUBST(appletdir)
 PKG_CHECK_MODULES(GST, gstreamer-app-0.10 >= $GST_REQ gstreamer-0.10 >= $GST_REQ)
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
-AC_PATH_PROG(GCONFTOOL, gconftool-2)
-
-AM_GCONF_SOURCE_2
 
 GIFENC_CFLAGS="$GTK_CFLAGS $ERROR_CFLAGS"
 GIFENC_LIBS="$GTK_LIBS"
