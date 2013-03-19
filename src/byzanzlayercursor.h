@@ -37,9 +37,8 @@ typedef struct _ByzanzLayerCursorClass ByzanzLayerCursorClass;
 struct _ByzanzLayerCursor {
   ByzanzLayer           layer;
 
-  XFixesCursorImage *   cursor_next;            /* current active cursor */
-
-  XFixesCursorImage *   cursor;                 /* last recorded cursor */
+  cairo_surface_t *     cursor_next;            /* current active cursor */
+  cairo_surface_t *     cursor;                 /* last recorded cursor */
   int                   cursor_x;               /* last recorded X position of cursor */
   int                   cursor_y;               /* last recorded Y position of cursor */
 

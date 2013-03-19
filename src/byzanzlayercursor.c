@@ -59,17 +59,20 @@ create_surface_for_cursor (XFixesCursorImage *cursor)
   return surface;
 }
 
-static void
+static cairo_surface_t *
 byzanz_layer_cursor_read_cursor (ByzanzLayerCursor *clayer)
 {
   Display *dpy = GDK_DISPLAY_XDISPLAY (gdk_window_get_display (BYZANZ_LAYER (clayer)->recorder->window));
   XFixesCursorImage *cursor;
 
   cursor = XFixesGetCursorImage (dpy);
-  if (cursor)
-     g_hash_table_insert (clayer->cursors, cursor, create_surface_for_cursor (cursor));
-
-  clayer->cursor_next = cursor;
+  if (cursor) {
+    cairo_surface_t *surface = create_surface_for_cursor (cursor);
+    g_hash_table_insert (clayer->cursors, cursor, surface);
+    return surface;
+  } else {
+    return NULL;
+  }
 }
 
 static gboolean
@@ -85,7 +88,7 @@ byzanz_layer_cursor_event (ByzanzLayer * layer,
     hack.cursor_serial = event->cursor_serial;
     clayer->cursor_next = g_hash_table_lookup (clayer->cursors, &hack);
     if (clayer->cursor_next == NULL)
-      byzanz_layer_cursor_read_cursor (clayer);
+      clayer->cursor_next = byzanz_layer_cursor_read_cursor (clayer);
     if (clayer->cursor_next != clayer->cursor)
       byzanz_layer_invalidate (layer);
     return TRUE;
@@ -129,17 +132,20 @@ byzanz_layer_cursor_setup_poll (ByzanzLayerCursor *clayer)
 }
 
 static void
-byzanz_layer_cursor_invalidate_cursor (cairo_region_t *region, XFixesCursorImage *cursor, int x, int y)
+byzanz_layer_cursor_invalidate_cursor (cairo_region_t *region, cairo_surface_t *surface, int x, int y)
 {
   cairo_rectangle_int_t cursor_rect;
+  double xhot, yhot;
 
-  if (cursor == NULL)
+  if (surface == NULL)
     return;
 
-  cursor_rect.x = x - cursor->xhot;
-  cursor_rect.y = y - cursor->yhot;
-  cursor_rect.width = cursor->width;
-  cursor_rect.height = cursor->height;
+  cairo_surface_get_device_offset (surface, &xhot, &yhot);
+
+  cursor_rect.x = x - xhot;
+  cursor_rect.y = y - yhot;
+  cursor_rect.width = cairo_image_surface_get_width (surface);
+  cursor_rect.height = cairo_image_surface_get_height (surface);
 
   cairo_region_union_rectangle (region, &cursor_rect);
 }
@@ -190,8 +196,8 @@ byzanz_layer_cursor_render (ByzanzLayer *layer,
   if (clayer->cursor == NULL)
     return;
 
-  cursor_surface = g_hash_table_lookup (clayer->cursors, clayer->cursor);
-  
+  cursor_surface = clayer->cursor;
+
   cairo_save (cr);
 
   cairo_translate (cr, clayer->cursor_x, clayer->cursor_y);
@@ -263,6 +269,6 @@ static void
 byzanz_layer_cursor_init (ByzanzLayerCursor *clayer)
 {
   clayer->cursors = g_hash_table_new_full (byzanz_cursor_hash,
-      byzanz_cursor_equal, NULL, (GDestroyNotify) XFree);
+      byzanz_cursor_equal, NULL, (GDestroyNotify) cairo_surface_destroy);
 }
 
