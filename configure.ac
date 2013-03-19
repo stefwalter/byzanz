@@ -69,7 +69,6 @@ CAIRO_REQ="1.10"
 GTK_REQ="3.0.0"
 APPLET_REQ="2.91.91"
 XDAMAGE_REQ="1.0"
-GST_REQ="0.10.24"
 GIO_REQ="2.35"
 
 PKG_CHECK_MODULES(GTK, cairo >= $CAIRO_REQ gtk+-3.0 >= $GTK_REQ x11 gio-2.0 >= $GIO_REQ)
@@ -84,7 +83,7 @@ AS_IF([test x$have_applet = xyes],
       [appletdir=`$PKG_CONFIG --variable=libpanel_applet_dir $LIBPANEL_APPLET`
        AC_SUBST(appletdir)],[])
 
-PKG_CHECK_MODULES(GST, gstreamer-app-0.10 >= $GST_REQ gstreamer-0.10 >= $GST_REQ)
+PKG_CHECK_MODULES(GST, gstreamer-app-1.0 gstreamer-1.0)
 
 GIFENC_CFLAGS="$GTK_CFLAGS $ERROR_CFLAGS"
 GIFENC_LIBS="$GTK_LIBS"

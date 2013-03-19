@@ -24,7 +24,6 @@
 #include "byzanzencodergstreamer.h"
 
 #include <glib/gi18n-lib.h>
-#include <gst/app/gstappbuffer.h>
 #include <gst/video/video.h>
 
 #include "byzanzserialize.h"
@@ -87,12 +86,14 @@ byzanz_encoder_gstreamer_need_data (GstAppSrc *src, guint length, gpointer data)
   /* create a buffer and send it */
   /* FIXME: stride just works? */
   cairo_surface_reference (gst->surface);
-  buffer = gst_app_buffer_new (cairo_image_surface_get_data (gst->surface),
-      cairo_image_surface_get_stride (gst->surface) * cairo_image_surface_get_height (gst->surface),
-      (GstAppBufferFinalizeFunc) cairo_surface_destroy, gst->surface);
-  GST_BUFFER_FLAG_SET (buffer, GST_BUFFER_FLAG_READONLY);
+  buffer = gst_buffer_new_wrapped_full (GST_MEMORY_FLAG_READONLY,
+                                        cairo_image_surface_get_data (gst->surface),
+                                        cairo_image_surface_get_stride (gst->surface) * cairo_image_surface_get_height (gst->surface),
+                                        0,
+                                        cairo_image_surface_get_stride (gst->surface) * cairo_image_surface_get_height (gst->surface),
+                                        gst->surface,
+                                        (GDestroyNotify) cairo_surface_destroy);
   GST_BUFFER_TIMESTAMP (buffer) = msecs * GST_MSECOND;
-  gst_buffer_set_caps (buffer, gst->caps);
   gst_app_src_push_buffer (gst->src, buffer);
 }
 
@@ -144,22 +145,26 @@ byzanz_encoder_gstreamer_run (ByzanzEncoder * encoder,
   g_object_set (sink, "stream", output, NULL);
   g_object_unref (sink);
 
+  gstreamer->caps = gst_caps_new_simple ("video/x-raw",
 #if G_BYTE_ORDER == G_LITTLE_ENDIAN
-  gstreamer->caps = gst_caps_from_string (GST_VIDEO_CAPS_BGRx);
+                                         "format", G_TYPE_STRING, "BGRx",
 #elif G_BYTE_ORDER == G_BIG_ENDIAN
-  gstreamer->caps = gst_caps_from_string (GST_VIDEO_CAPS_xRGB);
+                                         "format", G_TYPE_STRING, "xRGB",
 #else
 #error "Please add the Cairo caps format here"
 #endif
-  gst_caps_set_simple (gstreamer->caps,
-      "width", G_TYPE_INT, width, 
-      "height", G_TYPE_INT, height,
-      "framerate", GST_TYPE_FRACTION, 0, 1, NULL);
+                                         "width", G_TYPE_INT, width,
+                                         "height", G_TYPE_INT, height,
+                                         "framerate", GST_TYPE_FRACTION, 0, 1, NULL);
   g_assert (gst_caps_is_fixed (gstreamer->caps));
 
   gst_app_src_set_caps (gstreamer->src, gstreamer->caps);
   gst_app_src_set_callbacks (gstreamer->src, &callbacks, gstreamer, NULL);
   gst_app_src_set_stream_type (gstreamer->src, GST_APP_STREAM_TYPE_STREAM);
+  gst_app_src_set_max_bytes (gstreamer->src, 0);
+  g_object_set (gstreamer->src,
+                "format", GST_FORMAT_TIME,
+                NULL);
 
   if (!gst_element_set_state (gstreamer->pipeline, GST_STATE_PLAYING)) {
     g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED, _("Failed to start GStreamer pipeline"));

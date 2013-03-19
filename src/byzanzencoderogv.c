@@ -41,12 +41,12 @@ byzanz_encoder_ogv_class_init (ByzanzEncoderOgvClass *klass)
   gtk_file_filter_add_pattern (encoder_class->filter, "*.ogg");
 
   gstreamer_class->pipeline_string = 
-    "appsrc name=src ! ffmpegcolorspace ! videorate ! "
-    "video/x-raw-yuv,framerate=25/1 ! theoraenc ! oggmux ! giostreamsink name=sink";
+    "appsrc name=src ! videoconvert ! videorate !"
+    "video/x-raw,format=Y444,framerate=25/1 ! theoraenc ! oggmux ! giostreamsink name=sink";
   gstreamer_class->audio_pipeline_string = 
-    "autoaudiosrc name=audiosrc ! audioconvert ! vorbisenc ! queue ! oggmux name=muxer ! giostreamsink name=sink "
-    "appsrc name=src ! ffmpegcolorspace ! videorate ! "
-    "video/x-raw-yuv,framerate=25/1 ! theoraenc ! queue ! muxer.";
+    "autoaudiosrc name=audiosrc ! audioconvert ! queue ! oggmux name=muxer ! giostreamsink name=sink "
+    "appsrc name=src ! videoconvert ! videorate ! "
+    "video/x-raw,format=Y444,framerate=25/1 ! theoraenc ! queue ! muxer.";
 }
 
 static void

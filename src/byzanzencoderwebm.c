@@ -40,12 +40,12 @@ byzanz_encoder_webm_class_init (ByzanzEncoderWebmClass *klass)
   gtk_file_filter_add_pattern (encoder_class->filter, "*.webm");
 
   gstreamer_class->pipeline_string = 
-    "appsrc name=src ! ffmpegcolorspace ! videorate ! "
-    "video/x-raw-yuv,framerate=25/1 ! vp8enc ! webmmux ! giostreamsink name=sink";
+    "appsrc name=src ! videoconvert ! videorate ! "
+    "video/x-raw,format=I420,framerate=25/1 ! vp8enc ! webmmux ! giostreamsink name=sink";
   gstreamer_class->audio_pipeline_string = 
     "autoaudiosrc name=audiosrc ! audioconvert ! vorbisenc ! queue ! webmmux name=muxer ! giostreamsink name=sink "
-    "appsrc name=src ! ffmpegcolorspace ! videorate ! "
-    "video/x-raw-yuv,framerate=25/1 ! vp8enc ! queue ! muxer.";
+    "appsrc name=src ! videoconvert ! videorate ! "
+    "video/x-raw,format=I420,framerate=25/1 ! vp8enc ! queue ! muxer.";
 }
 
 static void
