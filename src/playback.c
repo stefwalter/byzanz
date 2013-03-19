@@ -71,8 +71,6 @@ main (int argc, char **argv)
   textdomain (GETTEXT_PACKAGE);
 #endif
 
-  g_type_init ();
-
   context = g_option_context_new (_("process a Byzanz debug recording"));
 #ifdef GETTEXT_PACKAGE
   g_option_context_set_translation_domain(context, GETTEXT_PACKAGE);
