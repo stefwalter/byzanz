@@ -141,11 +141,11 @@ byzanz_recorder_create_snapshot (ByzanzRecorder *recorder, const cairo_region_t 
 
     cairo_save (cr);
     klass->render (layer, cr);
+    if (cairo_status (cr))
+      g_critical ("error capturing image: %s", cairo_status_to_string (cairo_status (cr)));
     cairo_restore (cr);
   }
 
-  if (cairo_status (cr))
-    g_printerr ("error capturing image: %s\n", cairo_status_to_string (cairo_status (cr)));
   cairo_destroy (cr);
 
   surface = ensure_image_surface (surface, invalid);
