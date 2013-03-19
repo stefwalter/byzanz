@@ -1,6 +1,6 @@
+
 noinst_LTLIBRARIES = libbyzanz.la
 bin_PROGRAMS = byzanz-record byzanz-playback
-libexec_PROGRAMS = byzanz-applet
 man_MANS = byzanz.1 byzanz-record.1 byzanz-playback.1
 
 BUILT_SOURCES = \
@@ -50,7 +50,7 @@ libbyzanz_la_SOURCES = \
 
 libbyzanz_la_CFLAGS = $(BYZANZ_CFLAGS) -I$(top_srcdir)/gifenc
 libbyzanz_la_LIBADD = $(BYZANZ_LIBS) $(top_builddir)/gifenc/libgifenc.la
-		 
+
 byzanz_playback_SOURCES = \
 	playback.c
 
@@ -64,6 +64,8 @@ byzanz_record_SOURCES = \
 byzanz_record_CFLAGS = $(BYZANZ_CFLAGS)
 byzanz_record_LDADD = $(BYZANZ_LIBS) ./libbyzanz.la
 
+if HAVE_APPLET
+libexec_PROGRAMS = byzanz-applet
 
 byzanz_applet_SOURCES = \
 	byzanzapplet.c \
@@ -72,7 +74,6 @@ byzanz_applet_SOURCES = \
 
 byzanz_applet_CFLAGS = -DBYZANZ_MENU_UI_DIR=\""$(uidir)"\" $(APPLET_CFLAGS)
 byzanz_applet_LDADD = $(APPLET_LIBS) ./libbyzanz.la
-
 
 byzanzmarshal.h: byzanzmarshal.list
 	$(GLIB_GENMARSHAL) --prefix=byzanz_marshal $(srcdir)/byzanzmarshal.list --header > byzanzmarshal.h
@@ -124,5 +125,4 @@ EXTRA_DIST = \
 	$(gsettings_schemas_in_in)	\
 	$(man_MANS) \
 	$(ui_DATA)
-
-
+endif

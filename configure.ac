@@ -77,9 +77,12 @@ PKG_CHECK_MODULES(GTK, cairo >= $CAIRO_REQ gtk+-3.0 >= $GTK_REQ x11 gio-2.0 >= $
 PKG_CHECK_MODULES(XDAMAGE, xdamage >= $XDAMAGE_REQ)
 
 LIBPANEL_APPLET="libpanelapplet-4.0"
-PKG_CHECK_MODULES(APPLET, $LIBPANEL_APPLET >= $APPLET_REQ)
-appletdir=`$PKG_CONFIG --variable=libpanel_applet_dir $LIBPANEL_APPLET`
-AC_SUBST(appletdir)
+PKG_CHECK_MODULES(APPLET, $LIBPANEL_APPLET >= $APPLET_REQ,
+                  have_applet=yes, have_applet=no)
+AM_CONDITIONAL(HAVE_APPLET, [test x$have_applet = xyes])
+AS_IF([test x$have_applet = xyes],
+      [appletdir=`$PKG_CONFIG --variable=libpanel_applet_dir $LIBPANEL_APPLET`
+       AC_SUBST(appletdir)],[])
 
 PKG_CHECK_MODULES(GST, gstreamer-app-0.10 >= $GST_REQ gstreamer-0.10 >= $GST_REQ)
 
