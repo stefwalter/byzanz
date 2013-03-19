@@ -48,6 +48,4 @@ src/byzanz-applet
 src/byzanz-playback
 src/byzanz-record
 src/byzanz.schemas
-src/byzanzmarshal.c
-src/byzanzmarshal.h
 

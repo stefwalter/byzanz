@@ -86,8 +86,6 @@ AS_IF([test x$have_applet = xyes],
 
 PKG_CHECK_MODULES(GST, gstreamer-app-0.10 >= $GST_REQ gstreamer-0.10 >= $GST_REQ)
 
-AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
-
 GIFENC_CFLAGS="$GTK_CFLAGS $ERROR_CFLAGS"
 GIFENC_LIBS="$GTK_LIBS"
 AC_SUBST(GIFENC_CFLAGS)

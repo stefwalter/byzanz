@@ -3,10 +3,6 @@ noinst_LTLIBRARIES = libbyzanz.la
 bin_PROGRAMS = byzanz-record byzanz-playback
 man_MANS = byzanz.1 byzanz-record.1 byzanz-playback.1
 
-BUILT_SOURCES = \
-	byzanzmarshal.h \
-	byzanzmarshal.c
-
 noinst_HEADERS = \
 	byzanzencoder.h \
 	byzanzencoderbyzanz.h \
@@ -39,7 +35,6 @@ libbyzanz_la_SOURCES = \
 	byzanzlayer.c \
 	byzanzlayercursor.c \
 	byzanzlayerwindow.c \
-	byzanzmarshal.c \
 	byzanzqueue.c \
 	byzanzqueueinputstream.c \
 	byzanzqueueoutputstream.c \
@@ -75,14 +70,6 @@ byzanz_applet_SOURCES = \
 byzanz_applet_CFLAGS = -DBYZANZ_MENU_UI_DIR=\""$(uidir)"\" $(APPLET_CFLAGS)
 byzanz_applet_LDADD = $(APPLET_LIBS) ./libbyzanz.la
 
-byzanzmarshal.h: byzanzmarshal.list
-	$(GLIB_GENMARSHAL) --prefix=byzanz_marshal $(srcdir)/byzanzmarshal.list --header > byzanzmarshal.h
-
-byzanzmarshal.c: byzanzmarshal.list
-	(echo "#include \"byzanzmarshal.h\""; \
-	 $(GLIB_GENMARSHAL) --prefix=byzanz_marshal $(srcdir)/byzanzmarshal.list --body) > byzanzmarshal.c
-
-
 gsettings_schemas_in_in = org.gnome.byzanz.applet.gschema.xml.in.in
 
 @INTLTOOL_XML_NOMERGE_RULE@
@@ -114,13 +101,11 @@ CLEANFILES = \
 	$(applet_DATA).in \
 	$(service_DATA) \
 	$(schemas_DATA) \
-	$(BUILT_SOURCES) \
 	$(gsettings_SCHEMAS_in) \
 	$(gsettings_SCHEMAS) \
 	*.gschema.valid
 
 EXTRA_DIST = \
-	byzanzmarshal.list \
 	org.gnome.ByzanzApplet.panel-applet.in.in \
 	$(gsettings_schemas_in_in)	\
 	$(man_MANS) \

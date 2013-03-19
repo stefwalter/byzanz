@@ -25,8 +25,6 @@
 
 #include <gdk/gdkx.h>
 
-#include "byzanzmarshal.h"
-
 enum {
   PROP_0,
   PROP_RECORDER,

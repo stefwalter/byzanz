@@ -31,7 +31,6 @@
 #include "byzanzlayer.h"
 #include "byzanzlayercursor.h"
 #include "byzanzlayerwindow.h"
-#include "byzanzmarshal.h"
 
 enum {
   PROP_0,
@@ -368,8 +367,8 @@ byzanz_recorder_class_init (ByzanzRecorderClass *klass)
 	  FALSE, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
   signals[IMAGE] = g_signal_new ("image", G_TYPE_FROM_CLASS (klass), G_SIGNAL_RUN_LAST,
-      G_STRUCT_OFFSET (ByzanzRecorderClass, image), NULL, NULL, 
-      byzanz_marshal_VOID__POINTER_POINTER_POINTER, G_TYPE_NONE, 3, 
+      G_STRUCT_OFFSET (ByzanzRecorderClass, image), NULL, NULL, NULL,
+      G_TYPE_NONE, 3, 
       G_TYPE_POINTER, G_TYPE_POINTER, G_TYPE_POINTER);
 }
 
