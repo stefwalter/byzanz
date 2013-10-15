@@ -1,15 +1,15 @@
 # Danish translation byzanz.
-# Copyright (C) 2010 byzanz & nedenstående oversættere.
+# Copyright (C) 2013 byzanz & nedenstående oversættere.
 # This file is distributed under the same license as the byzanz package.
 # Kris Hansen <mumien@yahoo.dk>, 2008.
-# Joe Hansen <joedalton2@yahoo.dk>, 2010, 2011.
+# Joe Hansen <joedalton2@yahoo.dk>, 2010, 2011, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: byzanz\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/\n"
-"POT-Creation-Date: 2011-04-03 20:09+0200\n"
-"PO-Revision-Date: 2011-04-02 13:53+0100\n"
+"POT-Creation-Date: 2013-10-15 18:41+0200\n"
+"PO-Revision-Date: 2013-10-14 13:53+0100\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Dansk Gruppen <dansk@dansk-gruppen.dk>\n"
 "Language: \n"
@@ -17,89 +17,59 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/byzanz.schemas.in.h:1
-msgid ""
-"If set, Byzanz will record audio from the default audio device if the format "
-"supports it. This allows narrating along with the recording."
-msgstr ""
-"Hvis angivet vil Byzanz optage lyd fra standardlydenheden hvis formatet "
-"understøtter den. Dette giver mulighed for kommentering sammen med "
-"optagelsen."
-
-#: ../src/byzanz.schemas.in.h:2 ../src/byzanzapplet.c:292 ../src/record.c:40
-msgid "Record audio"
-msgstr "Optag lyd"
-
-#: ../src/byzanz.schemas.in.h:3
-msgid "Recording method"
-msgstr "Optagelsesmetode"
-
-#: ../src/byzanz.schemas.in.h:4
-msgid "Save filename"
-msgstr "Gem filnavn"
-
-#: ../src/byzanz.schemas.in.h:5
-msgid "URI for the filename Byzanz will suggest when starting a recording."
-msgstr "Adresse for filnavnet Byzanz vil foreslå når en optagelse startes."
-
-#: ../src/byzanz.schemas.in.h:6
-msgid ""
-"Use this method as the default method for recording. Must be one of \"screen"
-"\" for recording the whole screen, \"area\" for selecting an area or \"window"
-"\" to select a window."
-msgstr ""
-"Brug denne metode, som standardmetode til optagelse. Den skal være en af "
-"\"screen\" for at kunne optage hele skærmen, \"area\" for at vælge et område "
-"eller \"window\" for at vælge et vindue."
-
-#: ../src/byzanzapplet.c:102 ../src/byzanzapplet.c:266
+#: ../src/byzanzapplet.c:104 ../src/byzanzapplet.c:267
 msgid "Record your desktop"
 msgstr "Optag dit skrivebord"
 
-#: ../src/byzanzapplet.c:103
+#: ../src/byzanzapplet.c:105
 msgid "Select area to record"
 msgstr "Vælg område at optage"
 
-#: ../src/byzanzapplet.c:104
+#: ../src/byzanzapplet.c:106
 msgid "End current recording"
 msgstr "Afslut nuværende optagelse"
 
-#: ../src/byzanzapplet.c:105
+#: ../src/byzanzapplet.c:107
 msgid "Abort encoding of recording"
 msgstr "Afbryd kodning af optagelse"
 
-#: ../src/byzanzapplet.c:276
+#: ../src/byzanzapplet.c:277
 msgid "All files"
 msgstr "Alle filer"
 
-#: ../src/byzanzapplet.c:366
+#: ../src/byzanzapplet.c:293
+#: ../src/org.gnome.byzanz.applet.gschema.xml.in.in.h:5 ../src/record.c:42
+msgid "Record audio"
+msgstr "Optag lyd"
+
+#: ../src/byzanzapplet.c:361
 msgid "Desktop Session"
 msgstr "Skrivebordssession"
 
-#: ../src/byzanzapplet.c:369
+#: ../src/byzanzapplet.c:364
 msgid "Record what's happening on your desktop"
 msgstr "Optag hvad der sker på dit skrivebord"
 
-#: ../src/byzanzapplet.c:371
+#: ../src/byzanzapplet.c:366
 msgid "translator-credits"
 msgstr ""
 "Kris Hansen, 2008.\n"
-"Joe Hansen, 2010.\n"
+"Joe Hansen, 2010-2013.\n"
 "\n"
 "Dansk-gruppen <dansk@dansk-gruppen.dk>\"\n"
 "Mere info: http://www.dansk-gruppen.dk"
 
-#: ../src/byzanzapplet.c:376
+#: ../src/byzanzapplet.c:371
 msgid "_About"
 msgstr "_Om"
-
-#: ../src/byzanzencoder.c:89 ../src/byzanzencodergstreamer.c:127
-msgid "This format does not support recording audio."
-msgstr "Dette format understøtter ikke optagelse af lyd."
 
 #: ../src/byzanzencoderbyzanz.c:80
 msgid "Byzanz debug files"
 msgstr "Fejlsøgningsfiler til Byzanz"
+
+#: ../src/byzanzencoder.c:89 ../src/byzanzencodergstreamer.c:128
+msgid "This format does not support recording audio."
+msgstr "Dette format understøtter ikke optagelse af lyd."
 
 #: ../src/byzanzencoderflv.c:38
 msgid "Flash video"
@@ -113,7 +83,7 @@ msgstr "Intet billede at kode."
 msgid "GIF images"
 msgstr "GIF-billeder"
 
-#: ../src/byzanzencodergstreamer.c:165
+#: ../src/byzanzencodergstreamer.c:170
 msgid "Failed to start GStreamer pipeline"
 msgstr "Kunne ikke starte GStreamer-datakanal"
 
@@ -125,27 +95,27 @@ msgstr "Theoravideo"
 msgid "WebM video"
 msgstr "WebM-video"
 
-#: ../src/byzanzselect.c:357
+#: ../src/byzanzselect.c:365
 msgid "Record _Desktop"
 msgstr "Optag _skrivebord"
 
-#: ../src/byzanzselect.c:357
+#: ../src/byzanzselect.c:365
 msgid "Record the entire desktop"
 msgstr "Optag hele skrivebordet"
 
-#: ../src/byzanzselect.c:359
+#: ../src/byzanzselect.c:367
 msgid "Record _Area"
 msgstr "Optag _område"
 
-#: ../src/byzanzselect.c:359
+#: ../src/byzanzselect.c:367
 msgid "Record a selected area of the desktop"
 msgstr "Optag et valgt område af skrivebordet"
 
-#: ../src/byzanzselect.c:361
+#: ../src/byzanzselect.c:369
 msgid "Record _Window"
 msgstr "Optag _vindue"
 
-#: ../src/byzanzselect.c:361
+#: ../src/byzanzselect.c:369
 msgid "Record a selected window"
 msgstr "Optag et valgt vindue"
 
@@ -157,152 +127,151 @@ msgstr "Ikke en Byzanzoptagelse"
 msgid "Unsupported byte order"
 msgstr "Byte-rækkefølge er ikke understøttet"
 
+#: ../src/org.gnome.byzanz.applet.gschema.xml.in.in.h:1
+msgid "Save filename"
+msgstr "Gem filnavn"
+
+#: ../src/org.gnome.byzanz.applet.gschema.xml.in.in.h:2
+msgid "URI for the filename Byzanz will suggest when starting a recording."
+msgstr "Adresse for filnavnet Byzanz vil foreslå når en optagelse startes."
+
+#: ../src/org.gnome.byzanz.applet.gschema.xml.in.in.h:3
+msgid "Recording method"
+msgstr "Optagelsesmetode"
+
+#: ../src/org.gnome.byzanz.applet.gschema.xml.in.in.h:4
+msgid ""
+"Use this method as the default method for recording. Must be one of \"screen"
+"\" for recording the whole screen, \"area\" for selecting an area or \"window"
+"\" to select a window."
+msgstr ""
+"Brug denne metode, som standardmetode til optagelse. Den skal være en af "
+"\"screen\" for at kunne optage hele skærmen, \"area\" for at vælge et område "
+"eller \"window\" for at vælge et vindue."
+
+#: ../src/org.gnome.byzanz.applet.gschema.xml.in.in.h:6
+msgid ""
+"If set, Byzanz will record audio from the default audio device if the format "
+"supports it. This allows narrating along with the recording."
+msgstr ""
+"Hvis angivet vil Byzanz optage lyd fra standardlydenheden hvis formatet "
+"understøtter den. Dette giver mulighed for kommentering sammen med "
+"optagelsen."
+
 #: ../src/playback.c:37
 #, c-format
 msgid "usage: %s [OPTIONS] INFILE OUTFILE\n"
 msgstr "brug: %s [TILVALG] INDFIL UDFIL\n"
 
-#: ../src/playback.c:38 ../src/record.c:68
+#: ../src/playback.c:38 ../src/record.c:72
 #, c-format
 msgid "       %s --help\n"
 msgstr "       %s --help\n"
 
-#: ../src/playback.c:77
+#: ../src/playback.c:74
 msgid "process a Byzanz debug recording"
 msgstr "behandle en fejlsøgningsoptagelse for Byzanz"
 
-#: ../src/playback.c:84 ../src/record.c:143
+#: ../src/playback.c:81 ../src/record.c:181
 #, c-format
 msgid "Wrong option: %s\n"
 msgstr "Forkert tilvalg: %s\n"
 
-#: ../src/record.c:37
+#: ../src/record.c:38
 msgid "Duration of animation (default: 10 seconds)"
 msgstr "Varighed af animation (standard: 10 sekunder)"
 
-#: ../src/record.c:37 ../src/record.c:38
+#: ../src/record.c:38 ../src/record.c:40
 msgid "SECS"
 msgstr "SEK"
 
-#: ../src/record.c:38
+#: ../src/record.c:39
+msgid "Command to execute and time"
+msgstr "Kommando der skal køres og tidspunkt"
+
+#: ../src/record.c:39
+msgid "COMMAND"
+msgstr "KOMMANDO"
+
+#: ../src/record.c:40
 msgid "Delay before start (default: 1 second)"
 msgstr "Forsinkelse før start (standard: 1 sekund)"
 
-#: ../src/record.c:39
+#: ../src/record.c:41
 msgid "Record mouse cursor"
 msgstr "Optag musemarkøren"
 
-#: ../src/record.c:41
+#: ../src/record.c:43
 msgid "X coordinate of rectangle to record"
 msgstr "X-koordinat af rektangel til optagelse"
 
-#: ../src/record.c:41 ../src/record.c:42 ../src/record.c:43 ../src/record.c:44
+#: ../src/record.c:43 ../src/record.c:44 ../src/record.c:45 ../src/record.c:46
 msgid "PIXEL"
 msgstr "Billedpunkt"
 
-#: ../src/record.c:42
+#: ../src/record.c:44
 msgid "Y coordinate of rectangle to record"
 msgstr "Y-koordinat af rektangel til optagelse"
 
-#: ../src/record.c:43
+#: ../src/record.c:45
 msgid "Width of recording rectangle"
 msgstr "Bredde på optagelsesrektangelet"
 
-#: ../src/record.c:44
+#: ../src/record.c:46
 msgid "Height of recording rectangle"
 msgstr "Højde på optagelsesrektangelet"
 
-#: ../src/record.c:45
+#: ../src/record.c:47
 msgid "Be verbose"
 msgstr "Vær uddybende"
 
-#: ../src/record.c:67
+#: ../src/record.c:71
 #, c-format
 msgid "usage: %s [OPTIONS] filename\n"
 msgstr "forbrug: %s [TILVALG] filnavn\n"
 
-#: ../src/record.c:77
+#: ../src/record.c:81
 #, c-format
 msgid "Error during recording: %s\n"
 msgstr "Fejl under optagelse: %s\n"
 
-#: ../src/record.c:83
+#: ../src/record.c:87
 msgid "Recording done.\n"
 msgstr "Optagelse færdig.\n"
 
-#: ../src/record.c:91
+#: ../src/record.c:95
 msgid "Recording completed. Finishing encoding...\n"
-msgstr "Optagelsen er færdig. Afslutter kodning...\n"
+msgstr "Optagelsen er færdig. Afslutter kodning ...\n"
 
-#: ../src/record.c:100
+#: ../src/record.c:107
 #, c-format
-msgid "Recording starts. Will record %d seconds...\n"
-msgstr "Optagelse starter. Vil optage %d sekunder...\n"
+msgid "Child exited with error %d\n"
+msgstr "Underproces afsluttedes med fejl %d\n"
+
+#: ../src/record.c:121
+#, c-format
+msgid "Invalid exec command: %s\n"
+msgstr "Ugyldig exec-kommando: %s\n"
+
+#: ../src/record.c:129
+#, c-format
+msgid "Failed to execute: %s\n"
+msgstr "Kunne ikke køre: %s\n"
 
 #: ../src/record.c:135
+msgid "Recording starts. Will record until child exits...\n"
+msgstr "Optagelse starter. Vil optage indtil underproces afslutter ...\n"
+
+#: ../src/record.c:138
+#, c-format
+msgid "Recording starts. Will record %d seconds...\n"
+msgstr "Optagelse starter. Vil optage %d sekunder ...\n"
+
+#: ../src/record.c:173
 msgid "record your current desktop session"
 msgstr "optag din nuværende skrivebordssession"
 
-#: ../src/record.c:152
+#: ../src/record.c:190
 #, c-format
 msgid "Given area is not inside desktop.\n"
 msgstr "Angivet område er ikke indenfor skrivebordet.\n"
-
-#~ msgid "Directory to save in"
-#~ msgstr "Mappe til at gemme i"
-
-#~ msgid ""
-#~ "If set, Byzanz will record the mouse cursor. While useful, recording the "
-#~ "mouse cursor results in bigger files and should therefore be used with "
-#~ "care."
-#~ msgstr ""
-#~ "Hvis slået til, vil Byzanz optage musemarkøren. Nyttigt, men optagelsen "
-#~ "af musemarkøren resulterer i større filer og bør derfor anvendes med "
-#~ "forsigtighed."
-
-#~ msgid ""
-#~ "This is the directory that Byzanz will default to when saving a file."
-#~ msgstr ""
-#~ "Dette er den mappe, som Byzanz vil bruge som standard, når du gemmer en "
-#~ "fil."
-
-#~ msgid "A file could not be saved."
-#~ msgstr "En fil kunne ikke gemmes."
-
-#~ msgid ""
-#~ "\"%s\" could not be saved.\n"
-#~ "The error that occured was: %s"
-#~ msgstr ""
-#~ "\"%s\" kunne ikke gemmes.\n"
-#~ "Fejlen der opstod var: %s"
-
-#~ msgid "Save Recorded File"
-#~ msgstr "Gem optaget fil"
-
-#~ msgid ""
-#~ "Byzanz requires a 24bpp or 32bpp depth for recording. The current "
-#~ "resolution is set to %dbpp."
-#~ msgstr ""
-#~ "Byzanz kræver en 24bpp eller 32bpp dybde for at kunne optage. Den "
-#~ "nuværende opløsning er sat til %dbpp."
-
-#~ msgid "Record _Mouse Cursor"
-#~ msgstr "Optag _musemarkør"
-
-#~ msgid "Byzanz Factory"
-#~ msgstr "Byzanz fabrik"
-
-#~ msgid "Let the animation loop"
-#~ msgstr "Lad animationen gå i løkke"
-
-#~ msgid "Preparing recording. Will start in 1 second...\n"
-#~ msgstr "Forbereder optagelse. Vil starte om 1 sekund...\n"
-
-#~ msgid ""
-#~ "Could not prepare recording.\n"
-#~ "Most likely the Damage extension is not available on the X server or the "
-#~ "file \"%s\" is not writable.\n"
-#~ msgstr ""
-#~ "Kunne ikke forberede optagelse.\n"
-#~ "Højst sandsynligt er skadeudvidelsen ikke tilgængelig på X-serveren eller "
-#~ "filen \"%s\" er ikke skrivbar.\n"
