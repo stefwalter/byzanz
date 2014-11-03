@@ -65,7 +65,7 @@ msgstr ""
 "Jiri Grönroos, 2013.\n"
 "Ilkka Tuohela, 2007.\n"
 "\n"
-"http://www.gnome.fi/"
+"https://l10n.gnome.org/teams/fi/"
 
 #: ../src/byzanzapplet.c:371
 msgid "_About"
