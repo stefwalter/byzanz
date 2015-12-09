@@ -133,7 +133,10 @@ start_recording (gpointer session)
     verbose_print (_("Recording starts. Will record until child exits...\n"));
     g_child_watch_add (pid, child_exited, session);
   } else {
-    verbose_print (_("Recording starts. Will record %d seconds...\n"), duration / 1000);
+    verbose_print (ngettext("Recording starts. Will record %d second...\n", 
+                            "Recording starts. Will record %d seconds...\n", 
+                            duration / 1000),
+                   duration / 1000);
     g_timeout_add (duration, stop_recording, session);
   }
   byzanz_session_start (session);
