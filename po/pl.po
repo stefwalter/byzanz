@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: byzanz\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/\n"
-"POT-Creation-Date: 2015-09-02 17:27+0200\n"
-"PO-Revision-Date: 2015-09-02 17:28+0200\n"
+"POT-Creation-Date: 2015-12-09 18:58+0100\n"
+"PO-Revision-Date: 2015-12-09 18:59+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -179,7 +179,7 @@ msgstr "       %s --help\n"
 msgid "process a Byzanz debug recording"
 msgstr "przetwarza nagranie debugowania programu Byzanz"
 
-#: ../src/playback.c:79 ../src/record.c:179
+#: ../src/playback.c:79 ../src/record.c:182
 #, c-format
 msgid "Wrong option: %s\n"
 msgstr "Błędna opcja: %s\n"
@@ -273,14 +273,17 @@ msgstr ""
 
 #: ../src/record.c:136
 #, c-format
-msgid "Recording starts. Will record %d seconds...\n"
-msgstr "Rozpoczęto nagrywanie. Zostanie nagranych %d s…\n"
+msgid "Recording starts. Will record %d second...\n"
+msgid_plural "Recording starts. Will record %d seconds...\n"
+msgstr[0] "Rozpoczęto nagrywanie. Zostanie nagrana %d sekunda…\n"
+msgstr[1] "Rozpoczęto nagrywanie. Zostaną nagrane %d sekundy…\n"
+msgstr[2] "Rozpoczęto nagrywanie. Zostanie nagranych %d sekund…\n"
 
-#: ../src/record.c:171
+#: ../src/record.c:174
 msgid "record your current desktop session"
 msgstr "nagrywa bieżącą sesję pulpitu"
 
-#: ../src/record.c:188
+#: ../src/record.c:191
 #, c-format
 msgid "Given area is not inside desktop.\n"
 msgstr "Podany obszar nie znajduje się na pulpicie.\n"
