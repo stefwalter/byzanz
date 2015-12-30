@@ -1,61 +1,25 @@
 # German translation of byzanz.
 # This file is put in the public domain.
 # Benjamin Otte <otte@gnome.org>, 2006.
-# Mario Blättermann <mariobl@gnome.org>, 2009, 2010.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2010, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: byzanz master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=byzanz&component=general\n"
-"POT-Creation-Date: 2011-02-21 18:35+0000\n"
-"PO-Revision-Date: 2011-02-26 21:05+0100\n"
-"Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
+"product=byzanz&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-12-09 08:33+0000\n"
+"PO-Revision-Date: 2015-12-30 13:00+0100\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Poedit-Language: German\n"
-"X-Poedit-Country: GERMANY\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.5\n"
 
-#: ../src/byzanz.schemas.in.h:1
-msgid ""
-"If set, Byzanz will record audio from the default audio device if the format "
-"supports it. This allows narrating along with the recording."
-msgstr ""
-"Falls gewählt, zeichnet Byzanz den Ton des gewählten Audiogerätes auf, wenn "
-"das Format es unterstützt. Dies erlaubt Erläuterungen während der "
-"Aufzeichnung."
-
-#: ../src/byzanz.schemas.in.h:2 ../src/byzanzapplet.c:292 ../src/record.c:40
-msgid "Record audio"
-msgstr "Ton aufzeichnen"
-
-#: ../src/byzanz.schemas.in.h:3
-msgid "Recording method"
-msgstr "Aufzeichnungsmethode"
-
-#: ../src/byzanz.schemas.in.h:4
-msgid "Save filename"
-msgstr "Dateiname zum Speichern"
-
-#: ../src/byzanz.schemas.in.h:5
-msgid "URI for the filename Byzanz will suggest when starting a recording."
-msgstr ""
-"Adresse des Dateinamens, den Byzanz am Beginn einer Aufzeichnung vorschlägt."
-
-#: ../src/byzanz.schemas.in.h:6
-msgid ""
-"Use this method as the default method for recording. Must be one of \"screen"
-"\" for recording the whole screen, \"area\" for selecting an area or \"window"
-"\" to select a window."
-msgstr ""
-"Diese Methode als Standard-Aufnahmemethode benutzen. Muss einer der Werte "
-"»screen« zur Aufnahme des ganzen Bildschirms, »area« zur Auswahl eines "
-"Bereichs oder »window« zur Auswahl eines Fensters sein."
-
-#: ../src/byzanzapplet.c:102 ../src/byzanzapplet.c:266
+#: ../src/byzanzapplet.c:102 ../src/byzanzapplet.c:265
 msgid "Record your desktop"
 msgstr "Aufzeichnen Ihrer Arbeitsfläche"
 
@@ -71,119 +35,163 @@ msgstr "Aktuelle Aufzeichnung beenden"
 msgid "Abort encoding of recording"
 msgstr "Enkodierung der Aufzeichnung abbrechen"
 
-#: ../src/byzanzapplet.c:276
+#: ../src/byzanzapplet.c:275
 msgid "All files"
 msgstr "Alle Dateien"
 
-#: ../src/byzanzapplet.c:366
+#: ../src/byzanzapplet.c:291
+#: ../src/org.gnome.byzanz.applet.gschema.xml.in.in.h:5 ../src/record.c:40
+msgid "Record audio"
+msgstr "Ton aufzeichnen"
+
+#: ../src/byzanzapplet.c:359
 msgid "Desktop Session"
 msgstr "Desktop-Sitzung"
 
-#: ../src/byzanzapplet.c:369
+#: ../src/byzanzapplet.c:362
 msgid "Record what's happening on your desktop"
 msgstr "Zeichnen Sie auf, was auf Ihrem Desktop passiert"
 
-#: ../src/byzanzapplet.c:371
+#: ../src/byzanzapplet.c:364
 msgid "translator-credits"
 msgstr ""
 "Benjamin Otte <otte@gnome.org>\n"
-"Mario Blättermann <mariobl@gnome.org>"
+"Mario Blättermann <mario.blaettermann@gmail.com>"
 
-#: ../src/byzanzapplet.c:376
+#: ../src/byzanzapplet.c:369
 msgid "_About"
 msgstr "_Info"
 
-#: ../src/byzanzencoder.c:89 ../src/byzanzencodergstreamer.c:127
-msgid "This format does not support recording audio."
-msgstr "Dieses Format unterstützt keine Tonaufzeichnung."
-
-#: ../src/byzanzencoderbyzanz.c:80
+#: ../src/byzanzencoderbyzanz.c:78
 msgid "Byzanz debug files"
 msgstr "Byzanz-Fehlerdiagnosedateien"
 
-#: ../src/byzanzencoderflv.c:38
+#: ../src/byzanzencoder.c:87 ../src/byzanzencodergstreamer.c:126
+msgid "This format does not support recording audio."
+msgstr "Dieses Format unterstützt keine Tonaufzeichnung."
+
+#: ../src/byzanzencoderflv.c:36
 msgid "Flash video"
 msgstr "Flash-Video"
 
-#: ../src/byzanzencodergif.c:209
+#: ../src/byzanzencodergif.c:207
 msgid "No image to encode."
 msgstr "Kein Bild zur Enkodierung vorhanden."
 
-#: ../src/byzanzencodergif.c:248
+#: ../src/byzanzencodergif.c:246
 msgid "GIF images"
 msgstr "GIF-Bilder"
 
-#: ../src/byzanzencodergstreamer.c:165
+#: ../src/byzanzencodergstreamer.c:168
 msgid "Failed to start GStreamer pipeline"
 msgstr "Start der GStreamer-Weiterleitung ist gescheitert"
 
-#: ../src/byzanzencoderogv.c:38
+#: ../src/byzanzencoderogv.c:36
 msgid "Theora video"
 msgstr "Theora-Video"
 
-#: ../src/byzanzencoderwebm.c:38
-#| msgid "Theora video"
+#: ../src/byzanzencoderwebm.c:36
 msgid "WebM video"
 msgstr "WebM-Video"
 
-#: ../src/byzanzselect.c:357
+#: ../src/byzanzselect.c:363
 msgid "Record _Desktop"
 msgstr "Ganzen _Bildschirm aufzeichnen"
 
-#: ../src/byzanzselect.c:357
+#: ../src/byzanzselect.c:363
 msgid "Record the entire desktop"
 msgstr "Ganzen Bildschirm aufzeichnen"
 
-#: ../src/byzanzselect.c:359
+#: ../src/byzanzselect.c:365
 msgid "Record _Area"
 msgstr "_Aufzuzeichnenden Bereich auswählen"
 
-#: ../src/byzanzselect.c:359
+#: ../src/byzanzselect.c:365
 msgid "Record a selected area of the desktop"
 msgstr "Aufzuzeichnenden Bereich auswählen"
 
-#: ../src/byzanzselect.c:361
+#: ../src/byzanzselect.c:367
 msgid "Record _Window"
 msgstr "_Fenster zum Aufzeichnen auswählen"
 
-#: ../src/byzanzselect.c:361
+#: ../src/byzanzselect.c:367
 msgid "Record a selected window"
 msgstr "Fenster zum Aufzeichnen auswählen"
 
-#: ../src/byzanzserialize.c:89
+#: ../src/byzanzserialize.c:87
 msgid "Not a Byzanz recording"
 msgstr "Keine Byzanz-Aufzeichnung"
 
-#: ../src/byzanzserialize.c:95
+#: ../src/byzanzserialize.c:93
 msgid "Unsupported byte order"
 msgstr "Nicht unterstützte Byte-Reihenfolge"
 
-#: ../src/playback.c:37
+#: ../src/org.gnome.byzanz.applet.gschema.xml.in.in.h:1
+msgid "Save filename"
+msgstr "Dateiname zum Speichern"
+
+#: ../src/org.gnome.byzanz.applet.gschema.xml.in.in.h:2
+msgid "URI for the filename Byzanz will suggest when starting a recording."
+msgstr ""
+"Adresse des Dateinamens, den Byzanz am Beginn einer Aufzeichnung vorschlägt."
+
+#: ../src/org.gnome.byzanz.applet.gschema.xml.in.in.h:3
+msgid "Recording method"
+msgstr "Aufzeichnungsmethode"
+
+#: ../src/org.gnome.byzanz.applet.gschema.xml.in.in.h:4
+msgid ""
+"Use this method as the default method for recording. Must be one of \"screen"
+"\" for recording the whole screen, \"area\" for selecting an area or \"window"
+"\" to select a window."
+msgstr ""
+"Diese Methode als Standard-Aufnahmemethode benutzen. Muss einer der Werte "
+"»screen« zur Aufnahme des ganzen Bildschirms, »area« zur Auswahl eines "
+"Bereichs oder »window« zur Auswahl eines Fensters sein."
+
+#: ../src/org.gnome.byzanz.applet.gschema.xml.in.in.h:6
+msgid ""
+"If set, Byzanz will record audio from the default audio device if the format "
+"supports it. This allows narrating along with the recording."
+msgstr ""
+"Falls gewählt, zeichnet Byzanz den Ton des gewählten Audiogerätes auf, wenn "
+"das Format es unterstützt. Dies erlaubt Erläuterungen während der "
+"Aufzeichnung."
+
+#: ../src/playback.c:35
 #, c-format
 msgid "usage: %s [OPTIONS] INFILE OUTFILE\n"
 msgstr "Aufruf: %s [OPTIONEN] EINGABEDATEI AUSGABEDATEI\n"
 
-#: ../src/playback.c:38 ../src/record.c:68
+#: ../src/playback.c:36 ../src/record.c:70
 #, c-format
 msgid "       %s --help\n"
 msgstr "           %s --help\n"
 
-#: ../src/playback.c:77
+#: ../src/playback.c:72
 msgid "process a Byzanz debug recording"
 msgstr "eine Fehlerdiagnoseaufzeichnung von Byzanz verarbeiten"
 
-#: ../src/playback.c:84 ../src/record.c:143
+#: ../src/playback.c:79 ../src/record.c:182
 #, c-format
 msgid "Wrong option: %s\n"
 msgstr "Falsche Option: %s\n"
 
-#: ../src/record.c:37
+#: ../src/record.c:36
 msgid "Duration of animation (default: 10 seconds)"
 msgstr "Dauer der Animation (Standard: 10 Sekunden)"
 
-#: ../src/record.c:37 ../src/record.c:38
+#: ../src/record.c:36 ../src/record.c:38
 msgid "SECS"
 msgstr "SEK"
+
+#: ../src/record.c:37
+msgid "Command to execute and time"
+msgstr "Auszuführender Befehl und Zeit"
+
+#: ../src/record.c:37
+msgid "COMMAND"
+msgstr "BEFEHL"
 
 #: ../src/record.c:38
 msgid "Delay before start (default: 1 second)"
@@ -217,52 +225,57 @@ msgstr "Höhe des aufzuzeichnenden Rechtecks"
 msgid "Be verbose"
 msgstr "Ausführlich"
 
-#: ../src/record.c:67
+#: ../src/record.c:69
 #, c-format
 msgid "usage: %s [OPTIONS] filename\n"
 msgstr "Aufruf: %s [OPTIONEN] Dateiname\n"
 
-#: ../src/record.c:77
+#: ../src/record.c:79
 #, c-format
 msgid "Error during recording: %s\n"
 msgstr "Fehler während der Aufzeichnung: %s\n"
 
-#: ../src/record.c:83
+#: ../src/record.c:85
 msgid "Recording done.\n"
 msgstr "Aufzeichnung abgeschlossen.\n"
 
-#: ../src/record.c:91
+#: ../src/record.c:93
 msgid "Recording completed. Finishing encoding...\n"
 msgstr "Aufzeichnung abgeschlossen. Enkodierung wird beendet …\n"
 
-#: ../src/record.c:100
+#: ../src/record.c:105
 #, c-format
-msgid "Recording starts. Will record %d seconds...\n"
-msgstr "Aufzeichnung beginnt. Sie wird %d Sekunden dauern …\n"
+msgid "Child exited with error %d\n"
+msgstr "Kindprozess wurde mit Fehlercode %d abgebrochen\n"
 
-#: ../src/record.c:135
+#: ../src/record.c:119
+#, c-format
+msgid "Invalid exec command: %s\n"
+msgstr "Ungültiger auszuführender Befehl: %s\n"
+
+#: ../src/record.c:127
+#, c-format
+msgid "Failed to execute: %s\n"
+msgstr "Ausführung fehlgeschlagen: %s\n"
+
+#: ../src/record.c:133
+msgid "Recording starts. Will record until child exits...\n"
+msgstr ""
+"Aufzeichnung beginnt. Sie wird beim Beenden des Kindprozesses angehalten …\n"
+
+#: ../src/record.c:136
+#, c-format
+msgid "Recording starts. Will record %d second...\n"
+msgid_plural "Recording starts. Will record %d seconds...\n"
+msgstr[0] "Aufzeichnung beginnt. Sie wird %d Sekunde dauern …\n"
+msgstr[1] "Aufzeichnung beginnt. Sie wird %d Sekunden dauern …\n"
+
+#: ../src/record.c:174
 msgid "record your current desktop session"
 msgstr "Zeichnen Sie Ihre Arbeitsfläche auf"
 
-#: ../src/record.c:152
+#: ../src/record.c:191
 #, c-format
 msgid "Given area is not inside desktop.\n"
 msgstr "Angegebener Bereich befindet sich außerhalb der Arbeitsfläche.\n"
 
-#~ msgid "Byzanz Factory"
-#~ msgstr "Byzanz-Fabrik"
-
-#~ msgid "Desktop Recorder"
-#~ msgstr "Desktop-Rekorder"
-
-#~ msgid ""
-#~ "If set, Byzanz will record the mouse cursor. While useful, recording the "
-#~ "mouse cursor results in bigger files and should therefore be used with "
-#~ "care."
-#~ msgstr ""
-#~ "Wenn aktiviert, zeichnet Byzanz den Mauszeiger auf. Das ist zwar nützlich, "
-#~ "führt aber zu größeren Dateien und sollte deshalb mit Vorsicht benutzt "
-#~ "werden."
-
-#~ msgid "Premature end of GStreamer pipeline"
-#~ msgstr "Vorzeitiges Ende der GStreamer-Weiterleitung"
