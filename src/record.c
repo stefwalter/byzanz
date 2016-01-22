@@ -90,9 +90,11 @@ session_notify_cb (ByzanzSession *session, GParamSpec *pspec, gpointer unused)
 static gboolean
 stop_recording (gpointer session)
 {
-  verbose_print (_("Recording completed. Finishing encoding...\n"));
-  byzanz_session_stop (session);
-  
+  if (byzanz_session_is_recording (session)) {
+    verbose_print (_("Recording completed. Finishing encoding...\n"));
+    byzanz_session_stop (session);
+  }
+
   return FALSE;
 }
 
@@ -196,7 +198,9 @@ main (int argc, char **argv)
       gdk_get_default_root_window (), &area, cursor, audio);
   g_object_unref (file);
   g_signal_connect (rec, "notify", G_CALLBACK (session_notify_cb), NULL);
-  
+
+  g_unix_signal_add (SIGINT, stop_recording, rec);
+
   delay = MAX (delay, 1);
   delay = (delay - 1) * 1000;
   duration = MAX (duration, 0);
