@@ -71,7 +71,7 @@ byzanz_encoder_gif_quantize (ByzanzEncoderGif * gif,
       cairo_image_surface_get_width (surface), cairo_image_surface_get_height (surface),
       cairo_image_surface_get_stride (surface), TRUE, 255);
   
-  if (!gifenc_initialize (gif->gifenc, palette, TRUE, error))
+  if (!gifenc_initialize (gif->gifenc, palette, FALSE, error))
     return FALSE;
 
   memset (gif->image_data,
